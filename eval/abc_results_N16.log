@@ -1,0 +1,25 @@
+# A/B/C feedback-level experiment (non-overlapping few-shot)
+# model=qwen2.5-coder:7b (ollama), temp fixed=0.3, K=5, N=16, date=2026-06-25
+# few-shot relations: employs/evaluated_by/cites/is_a (zero overlap with E5=derived_from, E6=authored_by/uses/derived_from)
+
+LLM backend: ('ollama', 'qwen2.5-coder:7b') 
+
+==============================================================================
+A/B/C 피드백 레벨 실험  (N=16/cell, temp 고정=0.3, K=5, few-shot 정답 없음)
+A=무정보 / B=진단만 / C=진단+유효대안.  완성=K내 solved(FCR-analog: 유효 plan 도달)
+==============================================================================
+
+■ case: direction(E5) — KEPCO-AD 데이터셋은 어느 원천(Source)에서 파생됐는가?
+  level      완성률     평균시도   총retry   per-attempt 누적완성(1..K)
+  A         1.00     2.00       16   [0.00 1.00 1.00 1.00 1.00]
+  B         1.00     2.06       17   [0.00 0.94 1.00 1.00 1.00]
+  C         1.00     2.00       16   [0.00 1.00 1.00 1.00 1.00]
+
+■ case: multihop-extend(E6) — 정민성이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?
+  level      완성률     평균시도   총retry   per-attempt 누적완성(1..K)
+  A         0.00      nan       64   [0.00 0.00 0.00 0.00 0.00]
+  B         0.12     3.00       60   [0.00 0.00 0.12 0.12 0.12]
+  C         0.00      nan       64   [0.00 0.00 0.00 0.00 0.00]
+
+(정직성: 통제케이스 2개×N=작은 샘플. 'C<B<A 경향 관측'까지. 통계유의성(McNemar류)은
+ 정식 평가셋(작업2)에서. P3도 작은 샘플엔 'illustrative given wide CIs'로 명시.)

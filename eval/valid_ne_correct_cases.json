@@ -1,0 +1,1022 @@
+[
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H2-method-isg",
+    "q": "이상금이 쓴 논문들이 사용한 방법(Method)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "employs",
+          "dir": "out"
+        }
+      ],
+      "find": "Method"
+    },
+    "results": [
+      "EXPLAIN-self-correction",
+      "LSTM-AE",
+      "LoRA",
+      "NBEATSx",
+      "Shannon-entropy",
+      "XGBoost"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  },
+  {
+    "id": "H3-src-isg",
+    "q": "이상금이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "plan": {
+      "anchor": "손병훈",
+      "path": [
+        {
+          "relation": "authored_by",
+          "dir": "in"
+        },
+        {
+          "relation": "uses",
+          "dir": "out"
+        },
+        {
+          "relation": "derived_from",
+          "dir": "out"
+        }
+      ],
+      "find": "Source"
+    },
+    "results": [
+      "KEPCO"
+    ]
+  }
+]

@@ -1,0 +1,45 @@
+# M4 multi-hop experiment — engine proof + flat contrast + e2e across models
+# date=2026-06-25, K=5
+### qwen2.5-coder:7b — engine proof + flat + e2e(N=5):
+LLM backend: ('ollama', 'qwen2.5-coder:7b') 
+
+========================================================================
+M4 (flagship 멀티홉): 결정론적 검증 > 학습 critic 의 교훈이 P1/P2에 전이되나?
+========================================================================
+
+[a] 엔진 증명 — 경로 직접 주입(LLM 없음): 순회가 학습계열 논문을 내는가
+  path: [{'relation': 'addresses', 'dir': 'out'}, {'relation': 'contrasts', 'dir': 'out'}, {'relation': 'is_a', 'dir': 'in'}, {'relation': 'employs', 'dir': 'in'}]
+  validate: PASS
+    P3 -addresses-> deterministic_vs_learned_verification
+    deterministic_vs_learned_verification -contrasts-> learned_discriminator
+    deterministic_vs_learned_verification -contrasts-> deterministic_verifier
+    XGBoost <-is_a learned_discriminator
+    LSTM-AE <-is_a learned_discriminator
+    NBEATSx <-is_a learned_discriminator
+    EXPLAIN-self-correction <-is_a deterministic_verifier
+    P1 <-employs XGBoost
+    P1 <-employs LSTM-AE
+    P2 <-employs NBEATSx
+    P3 <-employs EXPLAIN-self-correction
+  결과: ['P1', 'P2', 'P3'] (contrasts가 두 kind로 분기 → P3 자신도 옴; 학습계열=P1,P2)
+  focused(anchor=learned_discriminator, 2-hop) 결과: ['P1', 'P2']
+
+[c] flat 단일홉 대조 — P3에서 한 관계로는 P1/P2에 닿지 못함
+  flat: {'anchor': 'P3', 'relation': 'employs', 'find': 'Method'} -> 결과: ['LoRA', 'EXPLAIN-self-correction'] (P3 자기 메서드뿐)
+
+[b] e2e — LLM이 M4를 직접 계획→순회 (5회, 날것)
+  run1: no_evidence/a1 plan_hops=2 results=[]
+  run2: no_evidence/a1 plan_hops=2 results=[]
+  run3: no_evidence/a1 plan_hops=2 results=[]
+  run4: no_evidence/a1 plan_hops=2 results=[]
+  run5: no_evidence/a1 plan_hops=2 results=[]
+
+### model=qwen2.5:7b-instruct — M4 정본 e2e (N=3):
+  run1: solved/a1 hops=single results=['LoRA', 'EXPLAIN-self-correction']
+  run2: solved/a1 hops=single results=['LoRA', 'EXPLAIN-self-correction']
+  run3: solved/a1 hops=single results=['LoRA', 'EXPLAIN-self-correction']
+
+### model=qwen3.6:35b — M4 정본 e2e (N=3):
+  run1: unresolved/a5 hops=single results=None
+  run2: unresolved/a5 hops=single results=None
+  run3: no_evidence/a2 hops=1 results=[]

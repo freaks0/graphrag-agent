@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+
+# 게재 논문 PDF는 repo에 두지 않고 README 링크로 대체
+main 24.pdf
+
+# 내부 설계/진행 문서 (공개 repo는 프로젝트 코드에만 집중)
+HANDOFF.md
+PLAN.md
+questions.md
+.claude/

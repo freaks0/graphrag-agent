@@ -1,0 +1,63 @@
+# L2 eval set — full run
+# model=qwen2.5-coder:7b, feedback=C, K=5, N=20, date=2026-06-25
+L2 평가셋 실행: 20문항 × N=20 (qwen2.5-coder:7b, feedback=C, K=5)
+
+  done S-p2method       (single)
+  done S-p1metric       (single)
+  done S-p3metric       (single)
+  done S-p2data         (single)
+  done S-p3cite         (single)
+  done S-p3method       (single)
+  done H2-method-isg    (2hop-branch)
+  done H2-data-jms      (2hop-branch)
+  done H2-metric-jms    (2hop-branch)
+  done H2-paper-kepco   (2hop-branch)
+  done H2-data-nbeatsx  (2hop-linear)
+  done H2-method-f1     (2hop-linear)
+  done H3-src-jms       (3hop)
+  done H3-src-isg       (3hop)
+  done H3-src-nbeatsx   (3hop)
+  done T1               (trap)
+  done T2               (trap)
+  done T3               (trap)
+  done T4               (trap)
+  done T5               (trap)
+
+==========================================================================
+1) 난도별 천장 곡선 (group별 평균, N문항당)
+  group              문항수     답정확도     경로정확도valid≠correct     평균시도
+  single               6     0.86      0.86         0.00     1.49
+  2hop-branch          4     0.50      0.25         0.25     2.89
+  2hop-linear          2     0.03      0.03         0.00     4.75
+  3hop                 3     0.67      0.33         0.33     1.90
+  trap                 5        -         -            -     2.76   거부0.30/우회0.62
+
+2) valid≠correct (답 맞고 경로 틀림 = FCR≠semantic 정량)
+  정상문항 전체 300런 중 valid≠correct 40런 (13.33%)
+
+3) 함정 거부/우회율 (문항별)
+  T1     거부 0.85 / 우회 0.10
+  T2     거부 0.65 / 우회 0.00
+  T3     거부 0.00 / 우회 1.00
+  T4     거부 0.00 / 우회 1.00
+  T5     거부 0.00 / 우회 1.00
+
+[부록] 문항별 답정확도/경로정확도
+  S-p2method      single         답 0.95 경로 0.95
+  S-p1metric      single         답 1.00 경로 1.00
+  S-p3metric      single         답 1.00 경로 1.00
+  S-p2data        single         답 1.00 경로 1.00
+  S-p3cite        single         답 1.00 경로 1.00
+  S-p3method      single         답 0.20 경로 0.20
+  H2-method-isg   2hop-branch    답 1.00 경로 0.00
+  H2-data-jms     2hop-branch    답 0.00 경로 0.00
+  H2-metric-jms   2hop-branch    답 1.00 경로 1.00
+  H2-paper-kepco  2hop-branch    답 0.00 경로 0.00
+  H2-data-nbeatsx 2hop-linear    답 0.05 경로 0.05
+  H2-method-f1    2hop-linear    답 0.00 경로 0.00
+  H3-src-jms      3hop           답 1.00 경로 1.00
+  H3-src-isg      3hop           답 1.00 경로 0.00
+  H3-src-nbeatsx  3hop           답 0.00 경로 0.00
+
+valid≠correct 스팟체크 케이스: /home/freaks/projects/graphrag-agent/eval/valid_ne_correct_cases.json
+(검증 정확도는 산출물 아님 — L1 함정 5종 회귀는 별도 단위검증 유지 ✓)
