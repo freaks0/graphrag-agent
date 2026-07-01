@@ -200,7 +200,7 @@ eval/               평가셋, 채점기, 실험 로그
 
 ## 관련 논문
 
-- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2025 (accepted, to appear)
+- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2026 (accepted, to appear)
 - 동일 연구 확장: KDD 2026 Workshop on AI for Data Science (AIDataSci), accepted
 
 ## License
