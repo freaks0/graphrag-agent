@@ -3,13 +3,29 @@
 LLM이 생성한 그래프 질의는 틀릴 수 있다 — 없는 관계를 참조하거나, 방향이 반대거나, 존재하지 않는 엔티티를 anchor로 잡거나.
 이 프로젝트는 그 틀린 질의를 결정론적으로 잡아내고, 구조화된 피드백으로 LLM이 스스로 고치게 만드는 자가수정 루프를 구현한다.
 
-내 게재 논문 [*Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*](https://doi.org/10.14801/jkiit.2025.23.4.57)에서
+내 게재 논문 *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*에서
 SQL에 적용했던 자가수정 메커니즘을 지식그래프로 이식하고, base SLM(qwen2.5-coder:7b) 위에서 어디까지 되고 어디서 무너지는지를 측정했다.
+
+### 기술 스택
+
+| 영역 | 선택 | 이유 |
+|---|---|---|
+| 에이전트 오케스트레이션 | **LangGraph** | 조건부 분기·자가수정 루프·상태 관리. 프로덕션 표준 |
+| 지식그래프 | **NetworkX** | 설치 없이 시작, 스키마 검증 로직에 집중 |
+| LLM | **ollama + qwen2.5-coder:7b** | 로컬 실행. 민감 데이터(산업 전력 데이터)가 외부로 나가지 않는 on-premise 환경을 전제 |
+| LLM 대체 | **OpenAI API** | 환경변수 하나로 전환 가능한 교체형 설계 |
+| 평가 | **결정론 채점** | LLM judge 없이 그래프에서 정답 집합을 도출해 채점 |
+| 관측 | **LangSmith** | 환경변수 1개로 단계별 자동 트레이싱 |
 
 ## 배경
 
 GraphRAG가 만능은 아니다. 단일홉 조회는 일반 RAG로 충분하고, 관계를 두 번 이상 타야 하는 멀티홉 질문에서만 그래프가 의미를 가진다.
 그래서 지식그래프는 내 논문 3편의 교차관계(공유 저자, 공유 데이터 원천, 공유 개념)로 구성했다 — 멀티홉이 실제로 성립하는 구조를 만들기 위해서.
+
+논문에 사용한 데이터는 대학원 과제로 다룬 KEPCO 산업 전력 데이터로, 비공개 데이터다.
+LLM을 로컬 SLM(ollama)으로 돌리는 건 단순한 비용 절감이 아니라,
+민감 데이터가 외부 API로 나가지 않는 on-premise 환경을 전제한 설계 결정이다.
+이 프레이밍은 KDD 2026 Workshop 논문에서도 동일하게 적용했다.
 
 핵심 질문은 두 가지였다:
 - 틀린 그래프 질의를 결정론적으로 잡을 수 있는가?
@@ -17,10 +33,26 @@ GraphRAG가 만능은 아니다. 단일홉 조회는 일반 RAG로 충분하고,
 
 ## 구조
 
-```
-질문 → [plan] → [validate] ─통과→ [execute] → [synthesize] → 답변
-                    │
-                    └─실패: 구조화 피드백 → [plan] (재시도, 최대 5회)
+```mermaid
+flowchart LR
+    Q["🗨️ 질문"] --> P["Plan\n질의 계획 생성"]
+    P --> V{"Validate\n스키마 검증\n(5종 에러)"}
+    V -- "통과" --> E["Execute\n멀티홉 순회"]
+    E --> S["Synthesize\n근거 기반 답변"]
+    V -- "실패: 구조화 피드백" --> P
+
+    KG[("📊 NetworkX KG\n논문 3편\n8 노드타입 · 9 관계")] -.-> V
+    KG -.-> E
+    LLM["🤖 LLM Backend\nollama / OpenAI"] -.-> P
+    LLM -.-> S
+
+    style Q fill:#58a6ff,color:#0d1117
+    style P fill:#3fb950,color:#0d1117
+    style V fill:#d29922,color:#0d1117
+    style E fill:#3fb950,color:#0d1117
+    style S fill:#bc8cff,color:#0d1117
+    style KG fill:#1f2937,color:#c9d1d9,stroke:#30363d
+    style LLM fill:#1f2937,color:#c9d1d9,stroke:#30363d
 ```
 
 LangGraph `StateGraph`로 네 단계를 연결한다.
@@ -32,7 +64,32 @@ LangGraph `StateGraph`로 네 단계를 연결한다.
 
 검증은 스키마만 본다. 교정은 LLM이 한다 — 이 분리가 핵심 설계 결정이다.
 
-LLM 백엔드는 환경변수(`LLM_BACKEND`, `LLM_MODEL`)로 교체 가능하다. 로컬 ollama를 기본으로 쓰고, OpenAI API로도 바로 전환된다.
+## 데모
+
+<!-- TODO: 실행 스크린샷 추가 예정 -->
+
+### 자가수정 회복 (방향오류 → 피드백 → 교정)
+
+<!-- 스크린샷: python run.py --demo 의 자가수정 케이스 -->
+
+의도적으로 방향이 틀린 plan을 주입하면, validate가 `E5_wrong_direction` 에러를 잡아내고
+유효 대안(`dir을 'in'로 변경`)을 피드백으로 돌려준다.
+LLM이 이 피드백을 받아 plan을 재생성하고, 2번째 시도에 통과한다.
+
+### 함정 질문 거부 (존재하지 않는 관계)
+
+<!-- 스크린샷: python run.py --demo 의 함정 T2 케이스 -->
+
+"P1을 인용한 내 다른 논문은?" — 내 논문 간 `cites` 관계가 KG에 없다.
+validate가 매 시도마다 거부하고, 5회 소진 후 미해결로 종료한다.
+
+### 대화형 모드
+
+```bash
+python run.py --interactive
+```
+
+직접 질문을 입력해서 에이전트의 동작을 확인할 수 있다.
 
 ## 결과
 
@@ -65,7 +122,7 @@ base SLM에서 같은 실험을 해보니: 쉬운 교정은 세부도에 관계�
 진짜 어려운 멀티홉은 세부도에 관계없이 다 무너진다.
 
 논문 결론의 전제조건을 발견한 셈이다 —
-*피드백 구조의 이득은 모델이 그 태스크를 해낼 능력이 있을 때만 발현된다. 없으면 무효. 그 경계가 파인튜닝이다.*
+피드백 구조의 이득은 모델이 그 태스크를 해낼 능력이 있을 때만 발현된다. 없으면 무효. 그 경계가 파인튜닝이다.
 
 ### 멀티홉 자율계획 (M4)
 
@@ -88,23 +145,36 @@ trace로 직접 확인할 수 있다 — 교정을 결정론적 repair 함수가
 
 ## 실행
 
+### 필요한 것
+- Python 3.10+
+- [ollama](https://ollama.com/) + `qwen2.5-coder:7b` 모델 (`ollama pull qwen2.5-coder:7b`)
+- 또는 OpenAI API 키 (`LLM_BACKEND=openai`, `LLM_MODEL=gpt-4o` 등으로 전환)
+
+### 설치 & 실행
+
 ```bash
-# 환경 설정
 python -m venv .venv
+
+# Windows
 .venv\Scripts\pip install -r requirements.txt
 
-# ollama + qwen2.5-coder:7b 기본 (LLM_BACKEND/LLM_MODEL로 변경 가능)
-python run.py              # 질문 하나 end-to-end
-python run.py --demo       # 자가수정 회복 + 함정 거부
-python run.py --m4         # 멀티홉 엔진 증명 + base SLM 한계
-python run.py --abc        # 피드백 세부도 A/B/C 실험
-python eval/run_eval.py 20 # 평가셋 전체 (N=20)
+# Linux/Mac
+.venv/bin/pip install -r requirements.txt
+```
+
+```bash
+python run.py                # 질문 하나 end-to-end
+python run.py --demo         # 자가수정 회복 + 함정 거부 시연
+python run.py --interactive  # 대화형 모드 (직접 질문 입력)
+python run.py --m4           # 멀티홉 엔진 증명 + base SLM 한계
+python run.py --abc          # 피드백 세부도 A/B/C 실험
+python eval/run_eval.py 20   # 평가셋 전체 (N=20)
 ```
 
 ## 파일 구조
 
 ```
-run.py              CLI 진입점
+run.py              CLI 진입점 (데모, 대화형, 실험 모드)
 agent.py            LangGraph 자가수정 루프
 knowledge_graph.py  KG 검증 + 멀티홉 실행
 kg_data.py          논문 3편 기반 KG 온톨로지·데이터
@@ -116,5 +186,9 @@ eval/               평가셋, 채점기, 실험 로그
 
 ## 관련 논문
 
-- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2025 ([DOI](https://doi.org/10.14801/jkiit.2025.23.4.57))
-- 동일 연구 확장: KDD 2026 Workshop (AIDataSci) accepted
+- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2025 (accepted, to appear)
+- 동일 연구 확장: KDD 2026 Workshop on AI for Data Science (AIDataSci), accepted
+
+## License
+
+[MIT](LICENSE)
