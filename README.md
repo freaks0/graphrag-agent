@@ -83,7 +83,7 @@ python run.py --interactive
 질문을 직접 입력하면, 매 질문마다 plan → validate → execute → synthesize 네 단계가
 trace로 펼쳐진다. 미리 정해진 답을 뱉는 게 아니라 계획하고 검증하는 과정이 그대로 보인다.
 
-<!-- 📷 스크린샷 자리: python run.py --interactive 실행 화면 -->
+![대화형 모드 실행 화면](assets/demo-interactive.png)
 
 ### 자가수정 회복 (방향오류 → 피드백 → 교정)
 
@@ -95,14 +95,14 @@ python run.py --demo
 유효 대안(`dir을 'in'로 변경`)을 피드백으로 돌려준다.
 LLM이 이 피드백을 받아 plan을 재생성하고, 2번째 시도에 통과한다.
 
-<!-- 📷 스크린샷 자리: --demo 의 자가수정 회복 케이스([자가수정 회복] KEPCO-AD ...) -->
+![자가수정 회복 케이스](assets/demo-self-correction.png)
 
 ### 함정 질문 거부 (존재하지 않는 관계)
 
 "P1을 인용한 내 다른 논문은?" — 내 논문 간 `cites` 관계가 KG에 없다.
 validate가 매 시도마다 거부하고, 5회 소진 후 미해결로 종료한다.
 
-<!-- 📷 스크린샷 자리: --demo 의 함정 T2 케이스([함정 T2 · 미해결 기대] ...) -->
+![함정 질문 거부 케이스](assets/demo-trap.png)
 
 
 ## 결과
