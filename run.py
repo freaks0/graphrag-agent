@@ -7,6 +7,13 @@
 그 피드백을 받아 LLM 이 plan 을 재생성해 통과한다. trace 로 그 과정을 증명한다.
 """
 import argparse
+import sys
+
+# Windows 콘솔(cp949 등)에서 유니코드(—, 화살표, 한글 입력) 깨짐 방지 → UTF-8 고정.
+# Linux/Mac는 이미 UTF-8이라 사실상 no-op.
+for _s in (sys.stdin, sys.stdout, sys.stderr):
+    if hasattr(_s, "reconfigure"):
+        _s.reconfigure(encoding="utf-8")
 
 from agent import run
 from llm import backend_info
@@ -126,14 +133,60 @@ def abc_experiment(n=8, temp=0.3, k=5):
     print(" 정식 평가셋(작업2)에서. P3도 작은 샘플엔 'illustrative given wide CIs'로 명시.)")
 
 
+EXAMPLES = [
+    "P3는 어떤 평가지표(Metric)로 평가되는가?",
+    "P2가 이상탐지에 사용한 모델(Method)은?",
+    "KEPCO-AD 데이터셋은 어느 원천(Source)에서 파생됐는가?",
+    "정민성이 쓴 논문들이 사용한 데이터셋의 원천(Source)은 무엇인가?",
+    "P1을 인용한 내 다른 논문은?  (함정: cites 관계 없음 → 거부)",
+]
+
+
+def interactive():
+    """대화형 모드: 사용자가 질문을 입력하면 매번 자가수정 루프 trace 를 보여준다."""
+    print("=" * 72)
+    print("대화형 모드 — 지식그래프(논문 3편)에 자연어로 질문하세요.")
+    print("종료: 빈 줄 입력 또는 Ctrl+C  ·  예시 보기: ?")
+    print("=" * 72)
+    print("예시 질문:")
+    for ex in EXAMPLES:
+        print(f"  · {ex}")
+    print()
+
+    while True:
+        try:
+            q = input("질문> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n종료합니다.")
+            return
+        if not q:
+            print("종료합니다.")
+            return
+        if q == "?":
+            print("예시 질문:")
+            for ex in EXAMPLES:
+                print(f"  · {ex}")
+            print()
+            continue
+        try:
+            show(q, run(q))
+        except Exception as e:  # 루프가 죽지 않게: 한 질문 실패해도 다음 질문 계속
+            print(f"[오류] {type(e).__name__}: {e}\n")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true", help="3케이스 데모(자가수정 포함)")
+    ap.add_argument("--interactive", "-i", action="store_true", help="대화형 모드(직접 질문 입력)")
     ap.add_argument("--m4", action="store_true", help="M4 멀티홉 증명(엔진+e2e+flat 대조)")
     ap.add_argument("--abc", action="store_true", help="피드백 레벨 A/B/C 실험(P3 ablation 그래프판)")
     ap.add_argument("-n", type=int, default=8, help="A/B/C 셀당 반복수 N")
     args = ap.parse_args()
     print("LLM backend:", backend_info(), "\n")
+
+    if args.interactive:
+        interactive()
+        return
 
     if args.abc:
         abc_experiment(n=args.n)
