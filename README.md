@@ -1,6 +1,6 @@
 # Self-Correcting GraphRAG Agent
 
-LLM이 생성한 그래프 질의는 틀릴 수 있다 — 없는 관계를 참조하거나, 방향이 반대거나, 존재하지 않는 엔티티를 anchor로 잡거나.
+LLM이 생성한 그래프 질의는 틀릴 수 있다. 없는 관계를 참조하고, 방향이 반대이고, 존재하지 않는 엔티티를 anchor로 잡는다.
 이 프로젝트는 그 틀린 질의를 결정론적으로 잡아내고, 구조화된 피드백으로 LLM이 스스로 고치게 만드는 자가수정 루프를 구현한다.
 
 내 게재 논문 *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*에서
@@ -20,7 +20,7 @@ SQL에 적용했던 자가수정 메커니즘을 지식그래프로 이식하고
 ## 배경
 
 GraphRAG가 만능은 아니다. 단일홉 조회는 일반 RAG로 충분하고, 관계를 두 번 이상 타야 하는 멀티홉 질문에서만 그래프가 의미를 가진다.
-그래서 지식그래프는 내 논문 3편의 교차관계(공유 저자, 공유 데이터 원천, 공유 개념)로 구성했다 — 멀티홉이 실제로 성립하는 구조를 만들기 위해서.
+그래서 지식그래프는 내 논문 3편의 교차관계(공유 저자, 공유 데이터 원천, 공유 개념)로 구성했다. 멀티홉이 실제로 성립하는 구조를 만들기 위해서다.
 
 지식그래프를 이루는 논문 3편(데모 질문에 나오는 P1/P2/P3):
 
@@ -65,12 +65,12 @@ flowchart LR
 
 LangGraph `StateGraph`로 네 단계를 연결한다.
 
-- **plan** — LLM이 자연어 질문에서 `{find, relation, anchor}` 형태의 질의 계획을 생성
-- **validate** — 스키마(노드타입, 관계, 엔티티)를 결정론적으로 검사. 5종 에러(없는 노드타입 / 없는 관계 / 호환불가 / 없는 anchor / 방향오류)를 잡아내고, 유효한 대안을 피드백으로 돌려준다. 논문에서 EXPLAIN 실행 결과를 피드백으로 쓴 것과 같은 역할
-- **execute** — 검증 통과한 계획으로 방향 인식 멀티홉 순회, 근거 서브그래프 수집
-- **synthesize** — 수집된 근거로 답변 생성
+- **plan**: LLM이 자연어 질문에서 `{find, relation, anchor}` 형태의 질의 계획을 생성
+- **validate**: 스키마(노드타입, 관계, 엔티티)를 결정론적으로 검사. 5종 에러(없는 노드타입 / 없는 관계 / 호환불가 / 없는 anchor / 방향오류)를 잡아내고, 유효한 대안을 피드백으로 돌려준다. 논문에서 EXPLAIN 실행 결과를 피드백으로 쓴 것과 같은 역할
+- **execute**: 검증 통과한 계획으로 방향 인식 멀티홉 순회, 근거 서브그래프 수집
+- **synthesize**: 수집된 근거로 답변 생성
 
-검증은 스키마만 본다. 교정은 LLM이 한다 — 이 분리가 핵심 설계 결정이다.
+검증은 스키마만 본다. 교정은 LLM이 한다. 이 분리가 핵심 설계 결정이다.
 
 ## 데모
 
@@ -99,7 +99,7 @@ LLM이 이 피드백을 받아 plan을 재생성하고, 2번째 시도에 통과
 
 ### 함정 질문 거부 (존재하지 않는 관계)
 
-"P1을 인용한 내 다른 논문은?" — 내 논문 간 `cites` 관계가 KG에 없다.
+"P1을 인용한 내 다른 논문은?"이라는 질문에는 함정이 있다. 내 논문 간 `cites` 관계가 KG에 없다.
 validate가 매 시도마다 거부하고, 5회 소진 후 미해결로 종료한다.
 
 ![함정 질문 거부 케이스](assets/demo-trap.png)
@@ -135,8 +135,8 @@ LLM이 스키마에 유효한 형태로 재해석해서 우회하기도 한다.
 base SLM에서 같은 실험을 해보니: 쉬운 교정은 세부도에 관계없이 다 회복하고,
 진짜 어려운 멀티홉은 세부도에 관계없이 다 무너진다.
 
-논문 결론의 전제조건을 발견한 셈이다 —
-피드백 구조의 이득은 모델이 그 태스크를 해낼 능력이 있을 때만 발현된다. 없으면 무효. 그 경계가 파인튜닝이다.
+논문 결론의 전제조건을 발견한 셈이다.
+피드백 구조의 이득은 모델이 그 태스크를 해낼 능력이 있을 때만 발현된다. 없으면 무효다. 그 경계가 파인튜닝이다.
 
 ### 멀티홉 자율계획 (M4)
 
@@ -155,7 +155,7 @@ base SLM에서 같은 실험을 해보니: 쉬운 교정은 세부도에 관계�
 
 `LANGCHAIN_TRACING_V2=true`와 API 키만 설정하면 LangGraph가 각 단계를 자동 트레이싱한다.
 자가수정 케이스에서 초기 plan(`anchor: KEPCO`)과 재생성 plan(`anchor: KEPCO-AD, dir: in`)의 값이 실제로 달라지는 걸
-trace로 직접 확인할 수 있다 — 교정을 결정론적 repair 함수가 아니라 LLM이 재계획으로 수행함을 보여준다.
+trace로 직접 확인할 수 있다. 교정을 결정론적 repair 함수가 아니라 LLM이 재계획으로 수행한다는 증거다.
 
 ## 실행
 
@@ -200,8 +200,9 @@ eval/               평가셋, 채점기, 실험 로그
 
 ## 관련 논문
 
-- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2026 (accepted, to appear)
-- 동일 연구 확장: KDD 2026 Workshop on AI for Data Science (AIDataSci), accepted
+- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2026 (accepted, to appear). 이 프로젝트가 이식한 자가수정 메커니즘의 원천 (P3)
+- 위 연구의 영문 확장: KDD 2026 Workshop on AI for Data Science (AIDataSci), accepted
+- 손병훈 외, *통신 메타데이터의 엔트로피 분석과 하이브리드 딥러닝 기반 청년 고립 탐지*, 한국통신학회 2026년도 동계종합학술발표회 (P1, 포스터 발표)
 
 ## License
 
