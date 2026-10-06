@@ -48,7 +48,7 @@ NODES = {
     "LoRA": ("Method", {}),
     "EXPLAIN-self-correction": ("Method", {}),
     # Metric
-    "F1": ("Metric", {"value": "0.89"}),
+    "F1": ("Metric", {}),
     "VUS-PR": ("Metric", {}),
     "FCR": ("Metric", {"value": "90/77% compliance"}),
     # CitedWork (P3만)
