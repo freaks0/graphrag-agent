@@ -3,14 +3,14 @@
 LLM이 생성한 그래프 질의는 틀릴 수 있다. 없는 관계를 참조하고, 방향이 반대이고, 존재하지 않는 엔티티를 anchor로 잡는다.
 이 프로젝트는 그 틀린 질의를 결정론적으로 잡아내고, 구조화된 피드백으로 LLM이 스스로 고치게 만드는 자가수정 루프를 구현한다.
 
-내 게재 논문 *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*에서
+내 게재 논문 *Improving SQL Generation on Industrial Time-Series Data with Structured EXPLAIN Feedback using a 4B SLM*(Journal of KIIT, 2026)에서
 SQL에 적용했던 자가수정 메커니즘을 지식그래프로 이식하고, base SLM(qwen2.5-coder:7b) 위에서 어디까지 되고 어디서 무너지는지를 측정했다.
 
 ### 기술 스택
 
 | 영역 | 선택 | 이유 |
 |---|---|---|
-| 에이전트 오케스트레이션 | **LangGraph** | 조건부 분기·자가수정 루프·상태 관리. 프로덕션 표준 |
+| 에이전트 오케스트레이션 | **LangGraph** | 조건부 분기·자가수정 루프·상태 관리. 조건부 분기·자가수정 루프·상태 관리를 그래프로 명시적으로 표현할 수 있음 |
 | 지식그래프 | **NetworkX** | 설치 없이 시작, 스키마 검증 로직에 집중 |
 | LLM | **ollama + qwen2.5-coder:7b** | 로컬 실행. 민감 데이터(산업 전력 데이터)가 외부로 나가지 않는 on-premise 환경을 전제 |
 | LLM 대체 | **OpenAI API** | 환경변수 하나로 전환 가능한 교체형 설계 |
@@ -30,7 +30,7 @@ GraphRAG가 만능은 아니다. 단일홉 조회는 일반 RAG로 충분하고,
 | **P2** | 산업 전력 이상탐지 (업종 조건화) | KEPCO-AD 데이터셋 사용 |
 | **P3** | SQL 생성 + EXPLAIN 자가수정 (4B SLM) | 이 프로젝트가 이식한 자가수정 메커니즘의 원천 논문 |
 
-논문에 사용한 데이터는 대학원 과제로 다룬 KEPCO 산업 전력 데이터로, 비공개 데이터다.
+논문에 사용한 데이터는 국가과제로 다룬 KEPCO 산업 전력 데이터로, 비공개 데이터다.
 LLM을 로컬 SLM(ollama)으로 돌리는 건 단순한 비용 절감이 아니라,
 민감 데이터가 외부 API로 나가지 않는 on-premise 환경을 전제한 설계 결정이다.
 이 프레이밍은 KDD 2026 Workshop 논문에서도 동일하게 적용했다.
@@ -198,12 +198,9 @@ llm.py              교체형 LLM 백엔드
 eval/               평가셋, 채점기, 실험 로그
 ```
 
-## 관련 논문
+- ## 관련 논문
 
-- 손병훈 외, *Improving SQL Generation with Structured EXPLAIN Feedback Using a 4B SLM*, Journal of KIIT, 2026 (accepted, to appear). 이 프로젝트가 이식한 자가수정 메커니즘의 원천 (P3)
-- 위 연구의 영문 확장: KDD 2026 Workshop on AI for Data Science (AIDataSci), accepted
-- 손병훈 외, *통신 메타데이터의 엔트로피 분석과 하이브리드 딥러닝 기반 청년 고립 탐지*, 한국통신학회 2026년도 동계종합학술발표회 (P1, 포스터 발표)
-
-## License
-
-[MIT](LICENSE)
+- **P3** · B. Son, M. Jung, S. Lee, *Improving SQL Generation on Industrial Time-Series Data with Structured EXPLAIN Feedback using a 4B SLM*, Journal of KIIT, Vol.24, No.7, 2026. [DOI](http://dx.doi.org/10.14801/jkiit.2026.24.7.81) · 이 프로젝트가 이식한 자가수정 메커니즘의 원천
+- **P3 영문 확장** · B. Son et al., *Structured EXPLAIN Feedback Improves SQL Generation with a 4B SLM on Industrial Time-Series Data*, AIDataSci @ KDD 2026 (Poster)
+- **P2** · 손병훈 외, *한국 산업 전력 이상 탐지를 위한 업종 조건화 전략의 예비 비교: 설계 및 예비 분석*, 한국통신학회 2026년도 하계종합학술발표회 (구두 발표)
+- **P1** · 손병훈 외, *통신 메타데이터의 엔트로피 분석과 하이브리드 딥러닝 기반 청년 고립 탐지*, 한국통신학회 2026년도 동계종합학술발표회 (포스터 발표)
