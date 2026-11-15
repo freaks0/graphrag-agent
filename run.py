@@ -86,15 +86,15 @@ def m4_demo(n=5):
     print("  flat:", flat, "-> 결과:", execute(flat, kg)["results"], "(P3 자기 메서드뿐)")
 
     print(f"\n[b] e2e — LLM이 M4를 직접 계획→순회 ({n}회, 날것)")
-    # §3-2 M4 정본: 다리 개념('학습된 판별기')을 적지 않는다 → LLM이 P3 발견에서
-    # 출발해 숨은 다리를 스스로 발견해야 하는 genuine 멀티홉(INV-5).
+    # 질문에 다리 개념('학습된 판별기')을 적지 않는다 → LLM이 P3 발견에서
+    # 출발해 숨은 다리를 스스로 발견해야 하는 진짜 멀티홉이 된다.
     q = ("P3는 결정론적 검증이 학습된 critic보다 낫다는 것을 보였다. "
          "내 다른 논문 중 학습된 모델로 판별/탐지를 하는 것은 무엇이고, P3의 교훈이 거기에도 적용되는가?")
     for i in range(n):
         r = run(q)
         res = r["evidence"]["results"] if r.get("evidence") else None
         p = r.get("plan") or {}
-        hops = "single(L1)" if "path" not in p else len(p["path"])
+        hops = "single" if "path" not in p else len(p["path"])
         print(f"  run{i+1}: {r['status']}/a{r['attempts']} plan_hops={hops} results={res}")
 
 
@@ -129,8 +129,8 @@ def abc_experiment(n=8, temp=0.3, k=5):
             cum = [sum(1 for r in solved if r["attempts"] <= kk) / n for kk in range(1, k + 1)]
             cum_s = " ".join(f"{c:.2f}" for c in cum)
             print(f"  {lv:<6}{comp:>8.2f}{avg_att:>9.2f}{total_retry:>9d}   [{cum_s}]")
-    print("\n(정직성: 통제케이스 2개×N=작은 샘플. 'C<B<A 경향 관측'까지. 통계유의성(McNemar류)은")
-    print(" 정식 평가셋(작업2)에서. P3도 작은 샘플엔 'illustrative given wide CIs'로 명시.)")
+    print("\n(통제 케이스 2개 × N=작은 샘플이므로 'C<B<A 경향 관측'까지만 말할 수 있다.")
+    print(" 통계적 유의성은 eval/run_eval.py의 정식 평가셋에서 다룬다.)")
 
 
 EXAMPLES = [
@@ -214,7 +214,7 @@ def main():
 
     # 3) 함정 T2: 논문 간 cite 엣지는 없음 -> 모든 plan 이 거부 ->
     #    K=5 소진 -> 미해결(루프 상한이 도는지 + 우아한 거부 증명).
-    #    주의(INV-3): 함정마다 다르다. T3/T4/T5 는 LLM 이 스키마-유효 재해석으로 우회한다
+    #    주의: 함정마다 다르다. T3/T4/T5 는 LLM 이 스키마-유효 재해석으로 우회한다
     #    (검증=스키마만, 의미정답 보장 안 함). 이건 실측 그대로 보고한다.
     q3 = "P1을 인용한 내 다른 논문은?"
     show("[함정 T2 · 미해결 기대] " + q3, run(q3))

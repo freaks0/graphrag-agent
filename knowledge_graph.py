@@ -1,6 +1,6 @@
 """결정론적 검증기 + 방향-인식 멀티홉 실행기.
 
-검증(validate) = 논문 EXPLAIN의 그래프 이식. **스키마/타입만** 본다(INV-3). 교정은 LLM plan이.
+검증(validate) = 논문 EXPLAIN의 그래프 이식. **스키마/타입만** 본다. 의미 정답은 판정하지 않는다. 교정은 LLM 재계획이 한다.
 
 방향 두 축의 분리(설계 핵심):
 - 스키마 방향: 관계의 정규 (src->dst). 불변. 그래프엔 정규 방향으로만 저장.
@@ -10,8 +10,8 @@
   역방향 순회는 validate가 타입-정합으로 인증한 hop에만 적용 → 없는 엣지 지어내기 구조적 불가.
 
 plan 형식:
-- L1(단일홉): {anchor, relation, find}              (= dir="out" 1-hop, 하위호환)
-- L2(멀티홉): {anchor, path:[{relation, dir}], find}  (dir: "out"|"in")
+- 단일홉: {anchor, relation, find}              (= dir="out" 1-hop, 하위호환)
+- 멀티홉: {anchor, path:[{relation, dir}], find}  (dir: "out"|"in")
 
 부재의 처리:
 - 타입 레벨 부재 -> validate (②③⑤).
@@ -62,7 +62,7 @@ def render_feedback(v, level="C"):
 
 
 def normalize(plan):
-    """L1/L2 plan 을 공통 path 형태 {anchor, path:[{relation,dir}], find} 로."""
+    """단일홉/멀티홉 plan 을 공통 path 형태 {anchor, path:[{relation,dir}], find} 로."""
     if not isinstance(plan, dict):
         return None
     anchor, find = plan.get("anchor"), plan.get("find")
@@ -111,12 +111,12 @@ def validate(plan, kg):
                            [f"{running}에 닿는 관계: {', '.join(vf)}"])
         running = nxt
 
-    # find 도달 검사 (타입 레벨만; 의미 검사 아님 → INV-3 유지).
+    # find 도달 검사 (타입 레벨만; 의미 검사 아님).
     # 경로가 find 타입에 도달 못함 = '계획이 덜 됨'(불완전 plan) → 거부하고 연장 안내.
-    # 단일홉(L1)은 기존 ② 메시지 유지(함정 불변). 멀티홉은 '연장' 피드백으로 LLM 재계획.
+    # 단일홉은 기존 ② 메시지 유지(함정 불변). 멀티홉은 '연장' 피드백으로 LLM 재계획.
     if F in NODE_TYPES:
         if running != F:
-            if len(path) == 1:  # L1 호환
+            if len(path) == 1:  # 단일홉 호환
                 R = path[0]["relation"]
                 return _reject("E2_unknown_relation", f"no relation '{R}' links {_ntype(kg, A)} -> {F}",
                                [f"{_ntype(kg, A)}에 닿는 관계: " +

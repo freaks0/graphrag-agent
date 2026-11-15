@@ -1,14 +1,14 @@
-"""지식그래프 시드 + 온톨로지 스키마 (Tier 0 + 함정 5종 범위).
+"""지식그래프 시드 + 온톨로지 스키마.
 
-L1 스코프: Person·Source·Dataset(Tier 0) + 함정 발화에 필요한 Paper/Method/Metric/CitedWork.
-의도적으로 제외(L2 범위): Concept 레이어, addresses/applies_to 엣지.
+기본 엔티티: Person, Source, Dataset + 함정 질문에 필요한 Paper/Method/Metric/CitedWork.
+Concept 레이어와 addresses/is_a/contrasts 엣지는 멀티홉 실험(M4)에 필요한 최소 집합만 둔다.
 
 노드는 attr `type`, 엣지는 attr `rel`(관계 타입)을 가진다. 방향이 중요하다(검증기가 검사).
 """
 import networkx as nx
 
 # ── 온톨로지 스키마 (검증기·plan 프롬프트의 단일 출처) ─────────────────────
-# Concept = L2 Tier-1. 지금은 M4(flagship 멀티홉) 1건만 성립시키는 최소 집합:
+# Concept 레이어는 멀티홉 실험(M4) 1건을 성립시키는 최소 집합만 둔다:
 # det_vs_learned_verification(P3 발견) + 메서드 kind 2개(중립 typing). 다른 토픽 개념은 보류.
 NODE_TYPES = ["Paper", "Person", "Source", "Dataset", "Method", "Metric", "CitedWork", "Concept"]
 
@@ -20,7 +20,7 @@ RELATIONS = {
     "employs":      ("Paper", "Method"),
     "evaluated_by": ("Paper", "Metric"),
     "cites":        ("Paper", "CitedWork"),   # P3만. 논문 간 cite는 없음
-    # ── L2 Tier-1 (M4용). 전부 단일방향. 결론('전이됨')은 박지 않는 중립 사실들 ──
+    # ── 멀티홉 실험(M4)용 관계. 전부 단일방향. 결론('전이됨')은 박지 않는 중립 사실들 ──
     "addresses":    ("Paper", "Concept"),     # 논문이 그 개념을 다룸 (불일치는 Paper→Concept로 통일)
     "is_a":         ("Method", "Concept"),    # 메서드의 종류(선택적 typing)
     "contrasts":    ("Concept", "Concept"),   # 개념이 두 kind를 대조(P3 §4.6 critic ablation의 중립 사실)
@@ -55,7 +55,7 @@ NODES = {
     "CHASE-SQL": ("CitedWork", {}),
     "Self-Refine": ("CitedWork", {}),
     "Reflexion": ("CitedWork", {}),
-    # Concept (L2 Tier-1, M4 최소집합)
+    # Concept (멀티홉 실험 M4 최소집합)
     "deterministic_vs_learned_verification": ("Concept", {"note": "P3 §4.6: critic 80% 통과 vs EXPLAIN 100%"}),
     "learned_discriminator": ("Concept", {}),
     "deterministic_verifier": ("Concept", {}),
@@ -78,7 +78,7 @@ EDGES = [
 
     ("P3", "cites", "CHASE-SQL"), ("P3", "cites", "Self-Refine"), ("P3", "cites", "Reflexion"),
 
-    # ── L2 Tier-1 (M4) ──
+    # ── 멀티홉 실험(M4)용 엣지 ──
     ("P3", "addresses", "deterministic_vs_learned_verification"),
     ("XGBoost", "is_a", "learned_discriminator"),
     ("LSTM-AE", "is_a", "learned_discriminator"),

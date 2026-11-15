@@ -1,4 +1,4 @@
-"""채점기 + 평가 하니스 (작업2). 결정론 채점(LLM judge 없음 → INV-3).
+"""채점기 + 평가 하니스. 결정론 채점(LLM judge 없음).
 
 두 층(P3 FCR vs execution 분리):
 - 답 정확도: execute 결과 == gold find 집합 (경로 무관).
@@ -7,7 +7,7 @@ valid≠correct = 답PASS ∧ 경로FAIL (답은 맞췄으나 anchor/경로 틀�
 함정: gold=REJECT. 거부(unresolved)=정답, 우회(solved)=오답(valid≠correct의 함정판).
 
 산출물 3종: 난도별 천장곡선 · valid≠correct 비율 · 함정 거부/우회율.
-검증 정확도는 산출물 아님 → 'L1 함정 5종 회귀 ✓' 한 줄.
+검증 정확도는 산출물 아님 → '함정 5종 회귀 ✓' 한 줄.
 """
 import os
 import sys
@@ -54,7 +54,7 @@ def group_of(item):
 
 def main():
     kg = build_kg()
-    print(f"L2 평가셋 실행: {len(EVAL)}문항 × N={N} (qwen2.5-coder:7b, feedback=C, K=5)\n")
+    print(f"평가셋 실행: {len(EVAL)}문항 × N={N} (qwen2.5-coder:7b, feedback=C, K=5)\n")
 
     per_q = {}
     vnc_cases = []   # valid≠correct 스팟체크용
@@ -118,7 +118,7 @@ def main():
     with open(out, "w") as f:
         json.dump(vnc_cases, f, ensure_ascii=False, indent=2)
     print(f"\nvalid≠correct 스팟체크 케이스: {out}")
-    print("(검증 정확도는 산출물 아님 — L1 함정 5종 회귀는 별도 단위검증 유지 ✓)")
+    print("(검증 정확도는 산출물 아님 — 함정 5종 회귀는 별도 단위검증 유지 ✓)")
 
 
 if __name__ == "__main__":
